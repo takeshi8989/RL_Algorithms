@@ -1,4 +1,4 @@
-# RL_Projects
+# RL_Fundamental
 
 ## Theory
 - Implementing the algorithms shown in RL textbook
@@ -27,3 +27,17 @@
 Your own project
 - Robotics
 - Vision
+
+
+
+# My Roadmap (By December 2024)
+- Textbook by Sutton (Oct)
+- OpenAI Spinning up (Oct)
+- Implement RL Algorithms (While reading the textbook again --> Deep understanding) (Nov)
+- Easy Projects (Nov)
+- Read Papers (Write about them, implement the theory) (Dec)
+
+Then, go further and deeper (April 2025)
+- Read more specific papers
+- Big Personal Project ~3 months of hard work (With Robotics, new, no one has done)
+- Do something other than RL (RL is just one of the methods to make a robot move smoothly, Explore more)
