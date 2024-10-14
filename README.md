@@ -5,6 +5,7 @@
   - DP
   - Monte Carlo
   - TD
+  - Approximation with Neural Networks
   - ... (DRL, Q) etc
 
 
