@@ -36,9 +36,7 @@ Your own project
 - OpenAI Spinning up (Oct)
 - Implement RL Algorithms (While reading the textbook again --> Deep understanding) (Nov)
 - Easy Projects (Nov)
-- Read Papers (Write about them, implement the theory) (Nov)
-- An Introduction to Deep Reinforcement Learning (Dec)
-- Paper Reading (Dec)
+- Read Papers (Write about them, implement the theory) (Dec)
 
 Then, go further and deeper (April 2025)
 - Read more specific papers
