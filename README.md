@@ -1,44 +1,47 @@
-# RL_Fundamental
+# Reinforcement Learning Fundamentals
 
-## Theory
-- Implementing the algorithms shown in RL textbook
-  - DP
-  - Monte Carlo
-  - TD
-  - Approximation with Neural Networks
-  - ... (DRL, Q) etc
+## Algorithms
+- Multi-armed Bandit
+- Dynamic Programming
+  - Policy Evaluation
+  - Policy Improvement
+  - Value Iteration
+  - Policy Iteration
+- Monte Carlo Methods
+  - Monte Carlo Control
+  - First-Visit vs. Every-Visit MC
+- Temporal-Difference Learning
+  - Q-Learning
+  - SARSA
+  - TD(λ)
+- Policy Gradient Methods
+  - REINFORCE Algorithm
+  - Actor-Critic Methods
+- Deep Reinforcement Learning
+  - Deep Q-Networks (DQN)
+  - Double DQN
+  - Dueling DQN
+  - Proximal Policy Optimization (PPO)
+  - Trust Region Policy Optimization (TRPO)
 
+## Projects
+- Grid World Environment
+- Blackjack
+- Mountain Car Problem
+- Atari Game
 
-## Example Projects
-- Easy
-  - K-Armed Bandit
-  - Gridworld
-  - Blackjack
- 
-- Intermediate
-  - CartPole Problem (OpenAI Gym)
-  - Mountain Car Problem (OpenAI Gym)
-  - etc
+## Papers
+- "Playing Atari with Deep Reinforcement Learning" by Mnih et al.
+- "Trust Region Policy Optimization" by Schulman et al.
+- "Proximal Policy Optimization Algorithms" by Schulman et al.
+- "Continuous Control with Deep Reinforcement Learning" by Lillicrap et al.
+- "Evolution Strategies as a Scalable Alternative to Reinforcement Learning" By Salimans et al.
+- "Curiosity-driven Exploration by Self-supervised Prediction" By Pathak et al.
+- "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm" by Silver et al.
+- "Benchmarking Reinforcement Learning Algorithms on Real-World Robots" by Mahmood et al.
+- "DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills" by Peng et al.
+- "DeepLoco: Dynamic Locomotion Skills Using Hierarchical Deep Reinforcement Learning" by Peng et al.
 
-## Paper Analysis
-- Read popular papers, summary, implement
-
-
-# What's next?
-Your own project
-- Robotics
-- Vision
-
-
-
-# My Roadmap (By December 2024)
-- Textbook by Sutton (Oct)
-- OpenAI Spinning up (Oct)
-- Implement RL Algorithms (While reading the textbook again --> Deep understanding) (Nov)
-- Easy Projects (Nov)
-- Read Papers (Write about them, implement the theory) (Dec)
-
-Then, go further and deeper (April 2025)
-- Read more specific papers
-- Big Personal Project ~3 months of hard work (With Robotics, new, no one has done)
-- Do something other than RL (RL is just one of the methods to make a robot move smoothly, Explore more)
+# References
+- Reinforcement Learning: An Introduction by Andrew Barto and Richard S. Sutton
+- Grokking Deep Reinforcement Learning by Miguel Morales
