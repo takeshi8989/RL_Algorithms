@@ -3,26 +3,18 @@
 ## Algorithms
 - Multi-armed Bandit
 - Dynamic Programming
-  - Policy Evaluation
-  - Policy Improvement
-  - Value Iteration
-  - Policy Iteration
 - Monte Carlo Methods
-  - Monte Carlo Control
-  - First-Visit vs. Every-Visit MC
-- Temporal-Difference Learning
-  - Q-Learning
-  - SARSA
-  - TD(λ)
-- Policy Gradient Methods
-  - REINFORCE Algorithm
-  - Actor-Critic Methods
-- Deep Reinforcement Learning
-  - Deep Q-Networks (DQN)
-  - Double DQN
-  - Dueling DQN
-  - Proximal Policy Optimization (PPO)
-  - Trust Region Policy Optimization (TRPO)
+- Temporal-Difference Learning (TD learning)
+- Q-Learning
+- SARSA
+- Deep Q Network (DQN)
+- Deep Deterministic Policy Gradient (DDPG)
+- Asynchronous Advantage Actor-Critic Algorithm (A3C)
+- Trust Region Policy Optimization (TRPO)
+- Proximal Policy Optimization (PPO)
+- Twin Delayed Deep Deterministic Policy Gradient (TD3)
+- Soft Actor-Critic (SAC)
+- Distributional Soft Actor-Critic (DSAC)
 
 ## Projects
 - Grid World Environment
@@ -45,3 +37,5 @@
 # References
 - Reinforcement Learning: An Introduction by Andrew Barto and Richard S. Sutton
 - Grokking Deep Reinforcement Learning by Miguel Morales
+- OpenAI Spinning Up
+  - https://spinningup.openai.com/en/latest/spinningup/rl_intro2.html#citations-below
