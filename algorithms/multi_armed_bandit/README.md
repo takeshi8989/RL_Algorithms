@@ -3,29 +3,29 @@
 ## Pseudocode
 
 Initialize, for a = 1 to k:
-  - Q(a) &larr; 0
-  - N(a) &larr; 0
+  - $Q(a) \gets 0$
+  - $N(a) \gets 0$
 
 Loop for the number of iterations:
   1. Choose action A as follows:
      - $\arg\max_a Q(a)$ with probability 1 - $\epsilon$
      - a random action with probability $\epsilon$
   2. Observe the reward
-     - R &larr; bandit(A)
+     - $R \gets bandit(A)$
   3. Update:
-     - N(A) &larr; N(A) + 1
-     - Q(A) &larr; Q(A) + $\frac{1}{N(A)} \left[ R - Q(A) \right]$
+     - $N(A) \gets N(A) + 1$
+     - $Q(A) \gets Q(A) + \frac{1}{N(A)} \left[ R - Q(A) \right]$
 
 ---
 
 ### Description
 
 - You can take one of k actions regardless of the state.
-- Q(a) is the estimated value of action.
-- N(a) is the number of times the action a has been selected.
+- $Q(a)$ is the estimated value of action.
+- $N(a)$ is the number of times the action a has been selected.
 - $\epsilon$ is a small probability that chooses a random action.
-- bandit(a) is a fuction that returns a reward based on the action.
-- R is a reward given by bandit(a)
+- $bandit(a)$ is a fuction that returns a reward based on the action.
+- $R$ is a reward given by $bandit(a)$
 
 ---
 
