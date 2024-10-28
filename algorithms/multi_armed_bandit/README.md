@@ -31,6 +31,7 @@ Loop for the number of iterations:
 
 ### Notes
 $q^*(a)$ is is the expected reward given that $a$ is selected. 
+
 $$
 q^*(a) = E[R_t \mid A_t = a]
 $$
@@ -42,11 +43,13 @@ Q_t(a) = \frac{\text{sum of rewards when $a$ taken prior to t}}{\text{number of 
 $$
 
 When you take a greedy action $A_t$, the algorithm is:
+
 $$
 A_t = \arg\max_a Q_t(a)
 $$
 
 And $Q_{n+1}$ is
+
 $$
 \begin{align*}
 Q_{n+1} &= \frac{R_1 + R_2 + \cdots + R_n}{n} \\
