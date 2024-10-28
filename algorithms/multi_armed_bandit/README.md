@@ -1,4 +1,4 @@
-# Multi-Armed Bandit
+# Multi-Armed Bandit (Epsilon Greedy)
 
 ## Pseudocode
 
@@ -6,7 +6,7 @@ Initialize, for a = 1 to k:
   - Q(a) &larr; 0
   - N(a) &larr; 0
 
-Loop forever:
+Loop for the number of iterations:
   1. Choose action A as follows:
      - $\arg\max_a Q(a)$ with probability 1 - $\epsilon$
      - a random action with probability $\epsilon$
@@ -15,7 +15,6 @@ Loop forever:
   3. Update:
      - N(A) &larr; N(A) + 1
      - Q(A) &larr; Q(A) + $\frac{1}{N(A)} \left[ R - Q(A) \right]$
-
 
 ---
 
@@ -28,6 +27,7 @@ Loop forever:
 - bandit(a) is a fuction that returns a reward based on the action.
 - R is a reward given by bandit(a)
 
+---
 
 ### Notes
 $q^*(a)$ is is the expected reward given that $a$ is selected. 
@@ -58,4 +58,3 @@ Q_{n+1} &= \frac{R_1 + R_2 + \cdots + R_n}{n} \\
         &= Q_n + \frac{1}{n} ( R_n - Q_n) \\
 \end{align*}
 $$
-
