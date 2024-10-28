@@ -2,7 +2,7 @@
 
 ## Value-Based Algorithms
 
-- Multi-Armed Bandit
+- [Multi-Armed Bandit](./multi_armed_bandit)
 - Dynamic Programming
 - Monte Carlo Methods
 - Temporal-Difference Learning
