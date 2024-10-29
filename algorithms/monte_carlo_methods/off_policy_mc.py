@@ -13,9 +13,8 @@ class OffPolicyMC:
         self.target_policy = defaultdict(lambda: None)
 
     def target_policy_action(self, state):
-        if self.target_policy[state] is None:
-            self.target_policy[state] = max(self.actions,
-                                            key=lambda a: self.Q[state][a])
+        self.target_policy[state] = max(self.actions,
+                                        key=lambda a: self.Q[state][a])
         return self.target_policy[state]
 
     def behavior_policy_action(self, state):
@@ -38,12 +37,12 @@ class OffPolicyMC:
             self.Q[state][action] += (W / self.C[state]
                                       [action]) * (G - self.Q[state][action])
 
-            self.target_policy[state] = max(self.actions,
-                                            key=lambda a: self.Q[state][a])
+            # Get the current optimal action based on Q values
+            target_action = self.target_policy_action(state)
 
-            if action != self.target_policy[state]:
+            if action != target_action:
                 break
 
             # π(a|s)=1 if a=argmax_a Q(s,a)
             # b(a|s)=1/|A| because we are using a uniform random policy
-            W *= 1.0 / len(self.actions)
+            W *= len(self.actions)
