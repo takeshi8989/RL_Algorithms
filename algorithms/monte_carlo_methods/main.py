@@ -3,6 +3,13 @@ from on_policy_mc import OnPolicyMC
 from off_policy_mc import OffPolicyMC
 
 
+def update_progress(episode_idx, num_episodes):
+    if episode_idx % (num_episodes // 10) == 0:
+        print(f"{episode_idx / num_episodes * 100:.2f}% done")
+    elif episode_idx == num_episodes - 1:
+        print("100% done")
+
+
 def print_table(usable_ace, policy, algorithm):
     print(
         f"\nOptimal policy "
@@ -33,23 +40,25 @@ if __name__ == "__main__":
 
     # On-policy MC
     on_policy = OnPolicyMC(env.states, env.actions, gamma=0.9, epsilon=0.1)
-    for _ in range(num_episodes):
+    for episode_idx in range(num_episodes):
+        update_progress(episode_idx, num_episodes)
         episode = env.play_episode(
             lambda state: on_policy.choose_action(state))
         on_policy.update(episode)
 
-    # Off-policy MC
-    off_policy = OffPolicyMC(env.states, env.actions, gamma=0.9)
-    for _ in range(num_episodes):
-        episode = env.play_episode(
-            lambda state: off_policy.behavior_policy_action(state))
-        off_policy.update(episode)
-
-    # Print learned policies
     print_policy(
         lambda state: on_policy.choose_action(state),
         "On-policy"
     )
+
+    # Off-policy MC
+    off_policy = OffPolicyMC(env.states, env.actions, gamma=0.9)
+    for episode_idx in range(num_episodes):
+        update_progress(episode_idx, num_episodes)
+        episode = env.play_episode(
+            lambda state: off_policy.behavior_policy_action(state))
+        off_policy.update(episode)
+
     print_policy(
         lambda state: off_policy.target_policy_action(state),
         "Off-policy"
