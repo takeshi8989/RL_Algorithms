@@ -22,6 +22,9 @@ class OffPolicyMC:
         return np.random.choice(self.actions)
 
     def update(self, episode):
+        if not episode:
+            return
+
         states, actions, rewards = zip(*episode)
 
         G = 0

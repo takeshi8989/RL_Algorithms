@@ -26,9 +26,15 @@ class OnPolicyMC:
 
     def choose_action(self, state):
         probs = list(self.policy[state].values())
+        # Normalize probabilities to ensure they sum to 1
+        probs = np.array(probs)
+        probs = probs / np.sum(probs)
         return np.random.choice(self.actions, p=probs)
 
     def update(self, episode):
+        if not episode:
+            return
+
         states, actions, rewards = zip(*episode)
 
         G = 0
