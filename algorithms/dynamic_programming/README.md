@@ -30,7 +30,7 @@
      - For each state $s \in S$:
        - $\pi(s) \gets \arg\max_a \sum_{s' \in S} P(s' | s, a) \left[ R(s, a) + \gamma V(s') \right]$
 
-4. **Return** optimal policy $\pi^*$ and state-value function $V^*$
+4. **Return** optimal policy $`\pi^*`$ and state-value function $`V^*`$
 
 
 ---
@@ -52,29 +52,29 @@ The goal of the algorithm is to iteratively improve the policy $\pi$ to find the
 **Objective: Evaluate the current policy to determine the expected value of each state under that policy.**
 
 The expected return $G$ is computed based on the immediate reward and the discounted future rewards. \
-The optimal State-Value Function $v^*(s)$ and the action-value function $q^*(s, a)$ can be expressed as:
+The optimal State-Value Function $`v^*(s)`$ and the action-value function $`q^*(s, a)`$ can be expressed as:
 
 
-$$
+```math
 \begin{align*}
 v^*(s) &= \max_a E[G_t | S_t=s, A_t=a] \\
        &= \max_a E[R_{t+1} + \gamma G_{t+1} | S_t=s, A_t=a] \\
        &= \max_a E[R_{t+1} + \gamma v^*(S_{t+1}) | S_t=s, A_t=a] \\ 
        &= \max_a \sum_{s', r} P(s', r| s, a) \left[ r + \gamma v^*(s') \right]
 \end{align*}
-$$
+```
 
 
 and 
 
 
-$$
+```math
 \begin{align*}
 q^*(s, a) &= E[G_t | S_t=s, A_t=a] \\
           &= E[R_{t+1} + \gamma \max_{a'} q^*(S_{t+1}, a') | S_t=s, A_t=a] \\
           &= \sum_{s', r} P(s', r| s, a) \left[ r + \gamma \max_{a'} q^*(s', a') \right]
 \end{align*}
-$$
+```
 
 
 Based on the policy $\pi$, the value functions look like:
