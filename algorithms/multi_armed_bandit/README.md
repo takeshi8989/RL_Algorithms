@@ -18,7 +18,7 @@ Loop for the number of iterations:
 
 ---
 
-### Description
+## Description
 
 - You can take one of k actions regardless of the state.
 - $Q(a)$ is the estimated value of action.
@@ -29,7 +29,7 @@ Loop for the number of iterations:
 
 ---
 
-### Notes
+## Notes
 $q^*(a)$ is is the expected reward given that $a$ is selected. 
 
 $$
