@@ -26,8 +26,8 @@
        - For each state $s \in S$:
          - $V(s) \gets \sum_{a \in A} \pi(a | s) \sum_{s' \in S} P(s' | s, a) \left[ R(s, a) + \gamma V(s') \right]$
 
-   - **Policy Improvement**: Improve $ \pi $ based on $ V(s) $
-     - For each state $ s \in S $:
+   - **Policy Improvement**: Improve $\pi$ based on $V(s)$
+     - For each state $s \in S$:
        - $\pi(s) \gets \arg\max_a \sum_{s' \in S} P(s' | s, a) \left[ R(s, a) + \gamma V(s') \right]$
 
 4. **Return** optimal policy $\pi^*$ and state-value function $V^*$
@@ -54,6 +54,7 @@ The goal of the algorithm is to iteratively improve the policy $\pi$ to find the
 The expected return $G$ is computed based on the immediate reward and the discounted future rewards. \
 The optimal State-Value Function $v^*(s)$ and the action-value function $q^*(s, a)$ can be expressed as:
 
+
 $$
 \begin{align*}
 v^*(s) &= \max_a E[G_t | S_t=s, A_t=a] \\
@@ -63,7 +64,9 @@ v^*(s) &= \max_a E[G_t | S_t=s, A_t=a] \\
 \end{align*}
 $$
 
+
 and 
+
 
 $$
 \begin{align*}
@@ -72,6 +75,7 @@ q^*(s, a) &= E[G_t | S_t=s, A_t=a] \\
           &= \sum_{s', r} P(s', r| s, a) \left[ r + \gamma \max_{a'} q^*(s', a') \right]
 \end{align*}
 $$
+
 
 Based on the policy $\pi$, the value functions look like:
 
