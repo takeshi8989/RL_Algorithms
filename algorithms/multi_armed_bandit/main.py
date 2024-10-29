@@ -1,4 +1,4 @@
-from epsilon_greedy import EpsilonGreedyBandit
+from epsilon_greedy_bandit import EpsilonGreedyBandit
 
 if __name__ == "__main__":
     k = 10
