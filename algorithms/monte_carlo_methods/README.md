@@ -29,11 +29,11 @@
         - $Q(s_t, a_t) \gets avg(Returns(s_t, a_t))$
         - $A^* \gets \arg\max_a Q(s_t, a_t)$
         - For all $a \in A$:
-            - If $a \neq A^*$: $\pi(a | S_t) \gets \epsilon / |A(S_t)|$
-            - If $a = A^*$: $\pi(a | S_t) \gets 1 - \epsilon + \epsilon / |A(S_t)|$
+            - If $a \neq A^*$: $\pi(a | S_t) \gets$ $\frac{\epsilon}{|A(S_t)|}$
+            - If $a = A^*$: $\pi(a | S_t) \gets 1 - \epsilon +$ $\frac{\epsilon}{|A(S_t)|}$
 
 **Return**:
-- improved policy $\pi^*$ and action-value function $Q^*$
+- improved policy $`\pi^*`$ and action-value function $`Q^*`$
 
 ---
 
@@ -50,7 +50,7 @@ The $\epsilon$-soft policy ensures that the agent explores all actions in each s
 
 ### Difference between First-visit MC and Every-visit MC
 
-In the case Episode: $s_1 \rarr a_1 \rarr s_2 \rarr a_2 \rarr s_1 \rarr a_1 \rarr s_3$  ($s_1,a_1$ appears twice)
+In the case Episode: $s_1 &rarr; a_1 &rarr; s_2 &rarr; a_2 &rarr; s_1 &rarr; a_1 &rarr; s_3$  ($s_1,a_1$ appears twice)
 
 First-visit MC:
 - Only uses the first $(s_1,a_1)$ occurrence to update $Q(s_1,a_1)$
@@ -186,18 +186,19 @@ V_{n+1} &= \frac{\sum_{k=1}^{n} W_k G_k}{C_n} \\
 ### Ordinary IS vs Weighted IS
 
 Regular IS:     
+
 $$
-Q(s,a) = sum(W_i * G_i) / n
+Q(s,a) = \frac{sum(W_i * G_i)}{n}
 $$
 
 Weighted IS:
+
 $$
 \begin{align*}
-Q(s,a) &= sum(W_i * G_i) / sum(W_i) \\
-       &= sum(W_i * G_i) / C(s,a)
+Q(s,a) &= \frac{sum(W_i * G_i)}{sum(W_i)} \\
+       &= \frac{sum(W_i * G_i)}{C(s,a)}
 \end{align*}
 $$
-
 
 - Regular IS can have high variance
 - $C(s,a)$ in the denominator helps normalize the update
