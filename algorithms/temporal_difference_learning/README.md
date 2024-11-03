@@ -122,7 +122,6 @@ $$
             - $G \gets G + \gamma^n Q(S_{\tau+n}, A_{\tau+n})$
         - $Q(S_{\tau}, A_{\tau}) \gets Q(S_{\tau}, A_{\tau} + a [G - Q(S_{\tau}, A_{\tau})]$
 
-    - If $\pi$ is being learned, then ensure that $\pi(S_{\tau})$ is $\epsilon$-greedy with respect to $Q$
 - Until $\tau = T-1$
 
 
@@ -149,7 +148,6 @@ $$
             - $G \gets G + \gamma^n Q(S_{\tau+n}, A_{\tau+n})$
         - $Q(S_{\tau}, A_{\tau}) \gets Q(S_{\tau}, A_{\tau} + a \rho [G - Q(S_{\tau}, A_{\tau})]$
 
-    - If $\pi$ is being learned, then ensure that $\pi(S_{\tau})$ is $\epsilon$-greedy with respect to $Q$
 - Until $\tau = T-1$
 
 
@@ -177,7 +175,6 @@ $$
             - $G \gets R_k + [\sum_{a \neq A_k} \pi(a|S_k) Q(S_k, a)] + \gamma G \pi(A_k | S_k) Q(S_k, A_k)$
         - $Q(S_{\tau}, A_{\tau}) \gets Q(S_{\tau}, A_{\tau} + a [G - Q(S_{\tau}, A_{\tau})]$
 
-    - If $\pi$ is being learned, then ensure that $\pi(S_{\tau})$ is $\epsilon$-greedy with respect to $Q$
 - Until $\tau = T-1$
 
 ---
