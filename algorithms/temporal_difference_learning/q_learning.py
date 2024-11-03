@@ -2,7 +2,7 @@ import numpy as np
 import random
 
 
-class QLearningAgent:
+class QLearning:
     def __init__(self, n_states, n_actions, alpha=0.1, gamma=0.9, epsilon=0.1):
         self.n_states = n_states
         self.n_actions = n_actions
@@ -43,7 +43,7 @@ class QLearningAgent:
         return self.q_table
 
 
-class DoubleQLearningAgent:
+class DoubleQLearning:
     def __init__(self, n_states, n_actions, alpha=0.1, gamma=0.9, epsilon=0.1):
         self.n_states = n_states
         self.n_actions = n_actions
