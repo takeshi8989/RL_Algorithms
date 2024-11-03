@@ -74,3 +74,28 @@ $$
 - Expected SARSA: Uses the expectation over the next actions for updating the value.
 - Q-Learning: An off-policy variant where updates are based on the maximum estimated future value.
 - Double Q-Learning: Addresses overestimation issues in Q-learning by maintaining two independent Q-value estimates.
+
+
+<br/><br/><br/>
+
+# n-step TD
+
+
+## n-step TD Prediction
+
+**Loop for each episode**:
+- Initialize $S_0 \neq terminal$
+- $T = \infty$
+- Loop for $t = 0, 1, 2, ...$:
+    - If $t < T$:
+        - $A_t \gets \pi(S_t)$
+        - Observe and Store $R_{t+1}, S_{t+1}$
+        - If $S_{t+1} = S_T$: 
+            - $T \gets t+1$
+    - $\tau \gets t-n+1$
+    - If $\tau \geq 0$:
+        - $G \gets \sum_{i=\tau+1}^{min(\tau+n, T)} \gamma^{i-\tau-1} R_i$
+        - If $\tau+n \lt T$: 
+            - $G \gets G + \gamma^n V(S_{\tau+n})$
+        - $V(S_{\tau}) \gets V(S_{\tau}) + a [G - V(S_{\tau})]$
+- Until $\tau = T-1$
