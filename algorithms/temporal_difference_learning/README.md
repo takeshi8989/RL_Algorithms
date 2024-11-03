@@ -125,3 +125,31 @@ $$
     - If $\pi$ is being learned, then ensure that $\pi(S_{\tau})$ is $\epsilon$-greedy with respect to $Q$
 - Until $\tau = T-1$
 
+
+
+## Off-policy n-step Sarsa
+
+**Loop for each episode**:
+- Initialize $S_0 \neq terminal$
+- Select and store $A_0 \gets b(S_0)$
+- $T = \infty$
+- Loop for $t = 0, 1, 2, ...$:
+    - If $t < T$:
+        - $A_t \gets b(S_t)$
+        - Observe and Store $R_{t+1}, S_{t+1}$
+        - If $S_{t+1} = S_T$: 
+            - $T \gets t+1$
+        - else: 
+            - $A_{t+1} \gets b(S_{t+1})$
+    - $\tau \gets t-n+1$
+    - If $\tau \geq 0$:
+        - $\rho \gets \prod_{i=\tau+1}^{min(\tau+n, T-1)} \frac{\pi(A_i | S_i)}{b(A_i | S_i)}$
+        - $G \gets \sum_{i=\tau+1}^{min(\tau+n, T)} \gamma^{i-\tau-1} R_i$
+        - If $\tau+n \lt T$: 
+            - $G \gets G + \gamma^n Q(S_{\tau+n}, A_{\tau+n})$
+        - $Q(S_{\tau}, A_{\tau}) \gets Q(S_{\tau}, A_{\tau} + a \rho [G - Q(S_{\tau}, A_{\tau})]$
+
+    - If $\pi$ is being learned, then ensure that $\pi(S_{\tau})$ is $\epsilon$-greedy with respect to $Q$
+- Until $\tau = T-1$
+
+
