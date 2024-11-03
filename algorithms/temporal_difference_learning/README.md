@@ -99,3 +99,29 @@ $$
             - $G \gets G + \gamma^n V(S_{\tau+n})$
         - $V(S_{\tau}) \gets V(S_{\tau}) + a [G - V(S_{\tau})]$
 - Until $\tau = T-1$
+
+
+## n-step Sarsa
+
+**Loop for each episode**:
+- Initialize $S_0 \neq terminal$
+- Select and store $A_0 \gets \pi(S_0)$
+- $T = \infty$
+- Loop for $t = 0, 1, 2, ...$:
+    - If $t < T$:
+        - $A_t \gets \pi(S_t)$
+        - Observe and Store $R_{t+1}, S_{t+1}$
+        - If $S_{t+1} = S_T$: 
+            - $T \gets t+1$
+        - else: 
+            - $A_{t+1} \gets \pi(S_{t+1})$
+    - $\tau \gets t-n+1$
+    - If $\tau \geq 0$:
+        - $G \gets \sum_{i=\tau+1}^{min(\tau+n, T)} \gamma^{i-\tau-1} R_i$
+        - If $\tau+n \lt T$: 
+            - $G \gets G + \gamma^n Q(S_{\tau+n}, A_{\tau+n})$
+        - $Q(S_{\tau}, A_{\tau}) \gets Q(S_{\tau}, A_{\tau} + a [G - Q(S_{\tau}, A_{\tau})]$
+
+    - If $\pi$ is being learned, then ensure that $\pi(S_{\tau})$ is $\epsilon$-greedy with respect to $Q$
+- Until $\tau = T-1$
+
