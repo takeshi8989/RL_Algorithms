@@ -35,3 +35,15 @@
     - $S \gets S'$
 
 
+
+## Q-Learning
+
+**Loop for each episode**:
+- Initialize $S$
+- Loop for each step of episode:
+    - $A \gets$ action derived from $Q$ (e.g $\epsilon$-greedy)
+    - Take action $A$, observe $R, S'$
+    - $Q(S, A) \gets Q(S, A) + a [R + \gamma \max_a Q(S', a) - Q(S, A)]$
+    - $S \gets S'$
+
+
