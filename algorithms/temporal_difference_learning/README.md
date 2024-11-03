@@ -153,3 +153,62 @@ $$
 - Until $\tau = T-1$
 
 
+## n-step Tree Backup
+
+**Loop for each episode**:
+- Initialize $S_0 \neq terminal$
+- Choose $A_0$ arbitrarily
+- $T = \infty$
+- Loop for $t = 0, 1, 2, ...$:
+    - If $t < T$:
+        - Take action $A_t$
+        - Observe and Store $R_{t+1}, S_{t+1}$
+        - If $S_{t+1} = S_T$:
+            - $T \gets t+1$
+        - else: 
+            - Choose $A_{t+1}$ arbitrarily
+    - $\tau \gets t-n+1$
+    - If $\tau \geq 0$:
+        - If $t + 1 \geq T$:
+            - $G \gets R_t$
+        - else:
+            - $G \gets R_{t+1} + \gamma \sum_a \pi(a | S_{t+1}) Q(S_{t+1}, a)$
+        - Loop for $k = min(t, T-1)$ down through $\tau + 1$
+            - $G \gets R_k + [\sum_{a \neq A_k} \pi(a|S_k) Q(S_k, a)] + \gamma G \pi(A_k | S_k) Q(S_k, A_k)$
+        - $Q(S_{\tau}, A_{\tau}) \gets Q(S_{\tau}, A_{\tau} + a [G - Q(S_{\tau}, A_{\tau})]$
+
+    - If $\pi$ is being learned, then ensure that $\pi(S_{\tau})$ is $\epsilon$-greedy with respect to $Q$
+- Until $\tau = T-1$
+
+---
+
+
+
+## Description
+
+n-step TD updates based on multiple steps ahead in an episode. 
+By averaging over n steps, n-step TD methods can better balance short-term and long-term information, improving the stability and convergence of value function estimates.
+
+$$
+V(S_{\tau}) \gets V(S_{\tau}) + a [G - V(S_{\tau})]
+$$
+
+Where 
+
+$$
+G = R_{\tau+1} + \gamma R_{\tau+2} + \gamma^2 R_{\tau+3} + ... + \gamma^{n-1} R{\tau+n} + \gamma^n V(S_{\tau+n})
+$$
+
+### n-step Tree Backup
+
+n-step Tree Backup uses a backup strategy for action-value functions that doesn’t require sampling actions but instead updates based on a weighted sum over actions, incorporating future action probabilities.
+
+$$
+Q(S_{\tau}, A_{\tau}) \gets Q(S_{\tau}, A_{\tau}) + a [G - Q(S_{\tau}, A_{\tau})]
+$$
+
+Where 
+
+$$
+G = R_{\tau+1} + \gamma [\sum_{a \neq A_{\tau+1}} \pi(a|S_{\tau+1}) Q(S_{\tau+1}, a)] + \gamma G \pi(A_{\tau+1}| S_{\tau+1})
+$$
