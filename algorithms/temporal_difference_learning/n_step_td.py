@@ -13,11 +13,15 @@ class NStepSarsa:
         self.n = n
         self.q_table = np.zeros((n_states, n_actions))
 
-    def choose_action(self, state):
+    def choose_action(self, env, state):
+        valid_actions = env.get_valid_actions()
+        if not valid_actions:
+            return None
         if random.uniform(0, 1) < self.epsilon:
-            return random.randint(0, self.n_actions - 1)
+            return random.choice(valid_actions)
         else:
-            return np.argmax(self.q_table[state])
+            q_values = self.q_table[state]
+            return max(valid_actions, key=lambda action: q_values[action])
 
     def update_q(self, rewards, states, actions, tau, T):
         G = sum(self.gamma**(i - tau - 1) *
@@ -32,7 +36,7 @@ class NStepSarsa:
     def train(self, env, num_episodes):
         for episode in range(num_episodes):
             state = env.reset()
-            action = self.choose_action(state)
+            action = self.choose_action(env, state)
 
             rewards = [0]
             states = [state]
@@ -49,7 +53,7 @@ class NStepSarsa:
                     if done:
                         T = t + 1
                     else:
-                        next_action = self.choose_action(next_state)
+                        next_action = self.choose_action(env, next_state)
                         actions.append(next_action)
                         action = next_action
 
@@ -78,9 +82,12 @@ class OffPolicyNStepSarsa:
         self.n = n
         self.q_table = np.zeros((n_states, n_actions))
 
-    def choose_action(self, state):
-        # Random policy: b(a|s) = 1/n_actions
-        return random.randint(0, self.n_actions - 1)
+    def choose_action(self, env):
+        # Random policy: b(a|s) = 1/possible_actions
+        valid_actions = env.get_valid_actions()
+        if not valid_actions:
+            return None
+        return random.choice(valid_actions)
 
     def update_q(self, rewards, states, actions, tau, T):
         rho = np.prod([
@@ -100,7 +107,7 @@ class OffPolicyNStepSarsa:
     def train(self, env, num_episodes):
         for episode in range(num_episodes):
             state = env.reset()
-            action = self.choose_action(state)
+            action = self.choose_action(env)
 
             rewards = [0]
             states = [state]
@@ -117,7 +124,7 @@ class OffPolicyNStepSarsa:
                     if done:
                         T = t + 1
                     else:
-                        next_action = self.choose_action(next_state)
+                        next_action = self.choose_action(env)
                         actions.append(next_action)
                         action = next_action
 
@@ -148,11 +155,15 @@ class TreeBackup:
         self.n = n
         self.q_table = np.zeros((n_states, n_actions))
 
-    def choose_action(self, state):
+    def choose_action(self, env, state):
+        valid_actions = env.get_valid_actions()
+        if not valid_actions:
+            return None
         if random.uniform(0, 1) < self.epsilon:
-            return random.randint(0, self.n_actions - 1)
+            return random.choice(valid_actions)
         else:
-            return np.argmax(self.q_table[state])
+            q_values = self.q_table[state]
+            return max(valid_actions, key=lambda action: q_values[action])
 
     def update_q(self, rewards, states, actions, tau, T):
         if tau + 1 >= T:
@@ -186,7 +197,7 @@ class TreeBackup:
     def train(self, env, num_episodes):
         for episode in range(num_episodes):
             state = env.reset()
-            action = self.choose_action(state)
+            action = self.choose_action(env, state)
 
             rewards = [0]
             states = [state]
@@ -203,7 +214,7 @@ class TreeBackup:
                     if done:
                         T = t + 1
                     else:
-                        next_action = self.choose_action(next_state)
+                        next_action = self.choose_action(env, next_state)
                         actions.append(next_action)
                         action = next_action
 

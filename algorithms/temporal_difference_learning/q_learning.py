@@ -11,11 +11,15 @@ class QLearning:
         self.epsilon = epsilon
         self.q_table = np.zeros((n_states, n_actions))
 
-    def choose_action(self, state):
+    def choose_action(self, env, state):
+        valid_actions = env.get_valid_actions()
+        if not valid_actions:
+            return None
         if random.uniform(0, 1) < self.epsilon:
-            return random.randint(0, self.n_actions - 1)
+            return random.choice(valid_actions)
         else:
-            return np.argmax(self.q_table[state])
+            q_values = self.q_table[state]
+            return max(valid_actions, key=lambda action: q_values[action])
 
     def update_q(self, state, action, reward, next_state):
         predict = self.q_table[state, action]
@@ -28,7 +32,7 @@ class QLearning:
             done = False
 
             while not done:
-                action = self.choose_action(state)
+                action = self.choose_action(env, state)
                 next_state, reward, done, _ = env.step(action)
 
                 self.update_q(state, action, reward, next_state)
@@ -53,12 +57,15 @@ class DoubleQLearning:
         self.q_table_1 = np.zeros((n_states, n_actions))
         self.q_table_2 = np.zeros((n_states, n_actions))
 
-    def choose_action(self, state):
+    def choose_action(self, env, state):
+        valid_actions = env.get_valid_actions()
+        if not valid_actions:
+            return None
         if random.uniform(0, 1) < self.epsilon:
-            return random.randint(0, self.n_actions - 1)
+            return random.choice(valid_actions)
         else:
-            q_values = self.q_table_1[state] + self.q_table_2[state]
-            return np.argmax(q_values)
+            q_values = self.q_table[state]
+            return max(valid_actions, key=lambda action: q_values[action])
 
     def update_q(self, state, action, reward, next_state):
         if random.uniform(0, 1) < 0.5:
@@ -80,7 +87,7 @@ class DoubleQLearning:
             done = False
 
             while not done:
-                action = self.choose_action(state)
+                action = self.choose_action(env, state)
                 next_state, reward, done, _ = env.step(action)
 
                 self.update_q(state, action, reward, next_state)
