@@ -2,41 +2,41 @@ import numpy as np
 import random
 
 
-class NStepSarsa:
-    def __init__(self, n_states, n_actions, alpha=0.1, gamma=0.9,
-                 epsilon=0.1, n=3):
+class OffPolicyNStepSarsa:
+    def __init__(self, n_states, n_actions, alpha=0.1, gamma=0.9, n=3):
         self.n_states = n_states
         self.n_actions = n_actions
         self.alpha = alpha
         self.gamma = gamma
-        self.epsilon = epsilon
         self.n = n
         self.q_table = np.zeros((n_states, n_actions))
 
-    def choose_action(self, env, state):
+    def choose_action(self, env):
+        # Random policy: b(a|s) = 1/possible_actions
         valid_actions = env.get_valid_actions()
         if not valid_actions:
             return None
-        if random.uniform(0, 1) < self.epsilon:
-            return random.choice(valid_actions)
-        else:
-            q_values = self.q_table[state]
-            return max(valid_actions, key=lambda action: q_values[action])
+        return random.choice(valid_actions)
 
     def update_q(self, rewards, states, actions, tau, T):
+        rho = np.prod([
+            1 / (1 / self.n_actions)
+            for _ in range(tau + 1, min(tau + self.n, T))
+        ])
+
         G = sum(self.gamma**(i - tau - 1) *
                 rewards[i] for i in range(tau + 1, min(tau + self.n, T)))
         if tau + self.n < T:
             G += self.gamma**self.n * \
                 self.q_table[states[tau + self.n], actions[tau + self.n]]
 
-        self.q_table[states[tau], actions[tau]] += self.alpha * \
+        self.q_table[states[tau], actions[tau]] += self.alpha * rho * \
             (G - self.q_table[states[tau], actions[tau]])
 
     def train(self, env, num_episodes):
         for episode in range(num_episodes):
             state = env.reset()
-            action = self.choose_action(env, state)
+            action = self.choose_action(env)
 
             rewards = [0]
             states = [state]
@@ -53,7 +53,7 @@ class NStepSarsa:
                     if done:
                         T = t + 1
                     else:
-                        next_action = self.choose_action(env, next_state)
+                        next_action = self.choose_action(env)
                         actions.append(next_action)
                         action = next_action
 

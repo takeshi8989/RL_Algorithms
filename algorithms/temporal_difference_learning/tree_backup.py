@@ -2,7 +2,7 @@ import numpy as np
 import random
 
 
-class NStepSarsa:
+class TreeBackup:
     def __init__(self, n_states, n_actions, alpha=0.1, gamma=0.9,
                  epsilon=0.1, n=3):
         self.n_states = n_states
@@ -24,14 +24,33 @@ class NStepSarsa:
             return max(valid_actions, key=lambda action: q_values[action])
 
     def update_q(self, rewards, states, actions, tau, T):
-        G = sum(self.gamma**(i - tau - 1) *
-                rewards[i] for i in range(tau + 1, min(tau + self.n, T)))
-        if tau + self.n < T:
-            G += self.gamma**self.n * \
-                self.q_table[states[tau + self.n], actions[tau + self.n]]
+        if tau + 1 >= T:
+            G = rewards[T]
+        else:
+            G = rewards[tau + 1] + self.gamma * np.sum([
+                self.get_policy_probabilities(states[tau + 1])[a] *
+                self.q_table[states[tau + 1], a]
+                for a in range(self.n_actions)
+            ])
+
+        for k in range(min(tau + self.n, T - 1), tau, -1):
+            best_action = np.argmax(self.q_table[states[k]])
+            G = rewards[k] + self.gamma * np.sum([
+                self.get_policy_probabilities(states[k])[a] *
+                self.q_table[states[k], a]
+                for a in range(self.n_actions)
+                if a != best_action
+            ]) + self.get_policy_probabilities(states[k])[best_action] * G
 
         self.q_table[states[tau], actions[tau]] += self.alpha * \
             (G - self.q_table[states[tau], actions[tau]])
+
+    def get_policy_probabilities(self, state):
+        probabilities = np.ones(self.n_actions) * \
+            (self.epsilon / self.n_actions)
+        best_action = np.argmax(self.q_table[state])
+        probabilities[best_action] += (1.0 - self.epsilon)
+        return probabilities
 
     def train(self, env, num_episodes):
         for episode in range(num_episodes):
@@ -58,8 +77,7 @@ class NStepSarsa:
                         action = next_action
 
                 tau = t - self.n + 1
-                if tau >= 0:
-                    self.update_q(rewards, states, actions, tau, T)
+                self.update_q(rewards, states, actions, tau, T)
 
                 if tau == T - 1:
                     break
