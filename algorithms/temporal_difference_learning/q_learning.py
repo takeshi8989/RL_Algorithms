@@ -21,7 +21,7 @@ class QLearning:
             q_values = self.get_q_values(state)
             return max(valid_actions, key=lambda action: q_values[action])
 
-    def update_q(self, env, state, action, reward, next_state,
+    def update_q(self, state, action, reward, next_state,
                  next_action=None):
         q_values = self.get_q_values(state)
         predict = q_values[action]
@@ -37,7 +37,7 @@ class QLearning:
                 action = self.choose_action(env, state)
                 next_state, reward, done, _ = env.step(action)
 
-                self.update_q(env, state, action, reward, next_state)
+                self.update_q(state, action, reward, next_state)
 
                 state = next_state
 
@@ -46,3 +46,8 @@ class QLearning:
         if state_key not in self.q_table:
             self.q_table[state_key] = np.zeros(self.n_actions)
         return self.q_table[state_key]
+
+    def choose_best_action(self, env, state):
+        valid_actions = env.get_valid_actions()
+        q_values = self.get_q_values(state)
+        return max(valid_actions, key=lambda action: q_values[action])
