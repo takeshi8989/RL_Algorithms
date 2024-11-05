@@ -1,4 +1,9 @@
-import time
+"""
+This is not working as good as I want it to. 
+The agent is not learning to play the game well.
+And we cannot use Sarsa, NStepSarsa, OffPolicyNStepSarsa, TreeBackup yet.
+"""
+
 import numpy as np
 
 from tic_tac_toe import TicTacToe
@@ -16,7 +21,7 @@ n_states = 3**9  # 3^9 possible board configurations
 n_actions = 9  # 9 possible board positions
 
 # Initialize agents
-sarsa_agent = Sarsa(n_states, n_actions, alpha=0.4, gamma=0.99, epsilon=0.4)
+sarsa_agent = Sarsa(n_states, n_actions, alpha=0.1, gamma=0.9, epsilon=0.1)
 expected_sarsa_agent = ExpectedSarsa(n_states, n_actions)
 q_learning_agent = QLearning(n_states, n_actions)
 double_q_learning_agent = DoubleQLearning(n_states, n_actions)
@@ -24,38 +29,11 @@ nstep_sarsa_agent = NStepSarsa(n_states, n_actions)
 off_policy_nstep_sarsa_agent = OffPolicyNStepSarsa(n_states, n_actions)
 tree_backup_agent = TreeBackup(n_states, n_actions)
 
-num_episodes = 3000000
-
-
-def play_game_with_agent(env, agent):
-    state = env.reset()
-    done = False
-
-    while not done:
-        print("Agent is thinking...")
-        time.sleep(3)
-
-        action = agent.get_best_action(state)
-        next_state, reward, done, info = env.step(action, user_play=True)
-
-        env.render()
-
-        if done:
-            break
-
-        user_action = int(input("Enter your action: "))
-        state, reward, done, info = env.step(user_action, user_play=True)
-
-        env.render()
-        print("\n\n")
-
-    print("Game over.")
-
-    return reward
-
 
 def evaluate_agent(agent, num_games):
-    total_reward = 0
+    win = 0
+    draw = 0
+    lose = 0
 
     env.reset()
     for _ in range(num_games):
@@ -63,12 +41,10 @@ def evaluate_agent(agent, num_games):
         done = False
 
         while not done:
-            action = agent.choose_action(env, state)
+            action = agent.choose_best_action(env, state)
             if action is None:
                 break
             _, reward, done, _ = env.step(action)
-
-            total_reward += reward
 
             if done:
                 break
@@ -76,38 +52,63 @@ def evaluate_agent(agent, num_games):
             opponent_action = np.random.choice(env.get_valid_actions())
             state, reward, done, _ = env.step(opponent_action)
 
-            total_reward -= reward
-
-    return total_reward / num_games
-
-
-def train_agents(env, agent1, agent2, num_episodes):
-    for episode in range(num_episodes):
-        state = env.reset()
-        current_agent = agent1
-
-        action = current_agent.choose_action(env, state)
-
-        done = False
-        while not done:
-            next_state, reward, done, _ = env.step(action, user_play=True)
-            if episode % 100000 == 0:
-                env.render()
-            next_action = current_agent.choose_action(env, next_state)
-
-            current_agent.update_q(
-                env, state, action, reward, next_state, next_action
-            )
-
             if done:
-                break
+                reward = -1
 
-            state = next_state
-            current_agent = agent1 if current_agent == agent2 else agent2
-            action = current_agent.choose_action(env, state)
+        if reward == 1:
+            win += 1
+        elif reward == 0:
+            draw += 1
+        else:
+            lose += 1
+
+    return win, draw, lose
 
 
-sarsa2_agent = Sarsa(n_states, n_actions, alpha=0.4, gamma=0.99, epsilon=0.4)
-train_agents(env, sarsa_agent, sarsa2_agent, num_episodes)
-while True:
-    play_game_with_agent(env, sarsa_agent)
+def train_agent(env, agent, num_episodes):
+    for episode in range(num_episodes):
+        state = env.reset()  # Reset the environment for a new game
+        done = False
+        agent_turn = True  # Track whose turn it is
+
+        while not done:
+            if agent_turn:
+                # Agent's move
+                action = agent.choose_action(env, state)
+                next_state, reward, done, _ = env.step(action)
+
+                if not done:
+                    agent.update_q(env, state, action, -0.01, next_state)
+                else:
+                    agent.update_q(env, state, action, reward, next_state)
+
+                state = next_state
+                agent_turn = False
+
+            else:
+                # Opponent's move (random valid action)
+                opponent_action = np.random.choice(env.get_valid_actions())
+                next_state, reward, done, _ = env.step(opponent_action)
+
+                if done:
+                    agent.update_q(env, state, action, -1, next_state)
+
+                state = next_state
+                agent_turn = True
+
+
+agent = q_learning_agent
+
+num_episodes = 100000
+agent.epsilon = 1.0  # Start with a high exploration rate
+epsilon_decay = 0.99995  # Decay epsilon slowly
+
+for episode in range(num_episodes):
+    train_agent(env, agent, 1)
+    agent.epsilon = max(0.1, agent.epsilon * epsilon_decay)
+
+    if episode % 10000 == 0:
+        print(f"Episode {episode}, epsilon: {agent.epsilon:.4f}")
+
+# Evaluate the agent's performance after training
+print("Win, Draw, Lose:", evaluate_agent(agent, 1000))

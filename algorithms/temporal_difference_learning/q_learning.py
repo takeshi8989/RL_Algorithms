@@ -21,8 +21,7 @@ class QLearning:
             q_values = self.get_q_values(state)
             return max(valid_actions, key=lambda action: q_values[action])
 
-    def update_q(self, state, action, reward, next_state,
-                 next_action=None):
+    def update_q(self, env, state, action, reward, next_state):
         q_values = self.get_q_values(state)
         predict = q_values[action]
         target = reward + self.gamma * np.max(self.get_q_values(next_state))

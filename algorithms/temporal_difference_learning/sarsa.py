@@ -52,7 +52,8 @@ class Sarsa:
         if state_key not in self.q_table:
             self.q_table[state_key] = np.zeros(self.n_actions)
         return self.q_table[state_key]
-    
-    def get_best_action(self, state):
+
+    def get_best_action(self, env, state):
+        valid_actions = env.get_valid_actions()
         q_values = self.get_q_values(state)
-        return max(range(self.n_actions), key=lambda action: q_values[action])
+        return max(valid_actions, key=lambda action: q_values[action])

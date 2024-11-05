@@ -19,7 +19,7 @@ class TicTacToe:
     def action_to_index(self, action):
         return action // 3, action % 3
 
-    def step(self, action, user_play=False):
+    def step(self, action):
         if self.done:
             raise ValueError(
                 "Game has already ended. Please reset the environment.")
@@ -42,24 +42,6 @@ class TicTacToe:
             reward = 0
 
         self.current_player *= -1
-
-        if self.done or user_play:
-            return self.board, reward, self.done, {"winner": self.winner}
-
-        # Play random action for opponent
-        opponent_action = np.random.choice(self.get_valid_actions())
-        row, col = self.action_to_index(opponent_action)
-        self.board[row, col] = self.current_player
-        self.current_player *= -1
-
-        if self.check_winner(-self.current_player):
-            self.done = True
-            self.winner = -self.current_player
-            reward = -1
-        elif len(self.get_valid_actions()) == 0:
-            self.done = True
-            self.winner = 0
-            reward = 0
 
         return self.board, reward, self.done, {"winner": self.winner}
 

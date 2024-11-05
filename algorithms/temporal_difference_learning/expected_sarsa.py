@@ -38,8 +38,7 @@ class ExpectedSarsa:
 
         return expected_q
 
-    def update_q(self, env, state, action, reward, next_state,
-                 next_action=None):
+    def update_q(self, env, state, action, reward, next_state):
         q_values = self.get_q_values(state)
         predict = q_values[action]
         target = reward + self.gamma * self.expected_value(env, next_state)
@@ -65,3 +64,8 @@ class ExpectedSarsa:
         if state_key not in self.q_table:
             self.q_table[state_key] = np.zeros(self.n_actions)
         return self.q_table[state_key]
+
+    def choose_best_action(self, env, state):
+        valid_actions = env.get_valid_actions()
+        q_values = self.get_q_values(state)
+        return max(valid_actions, key=lambda action: q_values[action])

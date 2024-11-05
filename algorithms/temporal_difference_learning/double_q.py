@@ -58,3 +58,10 @@ class DoubleQLearning:
         if state_key not in q_table:
             q_table[state_key] = np.zeros(self.n_actions)
         return q_table[state_key]
+
+    def choose_best_action(self, env, state):
+        valid_actions = env.get_valid_actions()
+        q_values_1 = self.get_q_values(state, self.q_table_1)
+        q_values_2 = self.get_q_values(state, self.q_table_2)
+        q_values = q_values_1 + q_values_2
+        return max(valid_actions, key=lambda action: q_values[action])
