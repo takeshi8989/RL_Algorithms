@@ -5,7 +5,7 @@
 - [Multi-Armed Bandit](./multi_armed_bandit)
 - [Dynamic Programming](./dynamic_programming)
 - [Monte Carlo Methods](./monte_carlo_methods)
-- Temporal-Difference Learning
+- [Temporal-Difference Learning](./temporal_difference_learning)
 - Deep Q-Network
 
 ## Policy-Based Algorithms
