@@ -38,8 +38,8 @@ class DQNAgent:
         self.optimizer = optim.Adam(self.q_network.parameters(), lr=lr)
 
         # Exploration parameters
-        self.epsilon = 1.0  # Initial exploration probability
-        self.epsilon_decay = 0.995  # Decay rate
+        self.epsilon = 1.0
+        self.epsilon_decay = 0.995
         self.epsilon_min = 0.01
 
     def select_action(self, state):
