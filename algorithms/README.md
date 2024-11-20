@@ -1,32 +1,19 @@
 # Algorithms
 
-## Value-Based Algorithms
-
 - [Multi-Armed Bandit](./multi_armed_bandit)
 - [Dynamic Programming](./dynamic_programming)
 - [Monte Carlo Methods](./monte_carlo_methods)
 - [Temporal-Difference Learning](./temporal_difference_learning)
 - [Deep Q-Network](./deep_q_network)
-
-## Policy-Based Algorithms
-
-- Policy Gradient Methods
-- Actor-Critic Methods
-
-## Actor-Critic for Continuous Action Spaces
-
-- Deep Deterministic Policy Gradient
-- Twin Delayed Deep Deterministic Policy Gradient
-- Soft Actor-Critic
-- Distributional Soft Actor-Critic
-
-## Model-Based Algorithms
+  
+- REINFORCE
+- A2C
+- PPO
+- TRPO
+- DDPG
+- SAC
+- TD3
 
 - Dyna-Q
-- Model Predictive Control
 - Monte Carlo Tree Search
 - AlphaZero
-
-## Exploration Techniques
-
-- Intrinsic Curiosity Module
