@@ -38,7 +38,7 @@
   - Intrinsic Curiosity Module (ICM)
 
 
-## Reference
+## References
 
 
 - [Reinforcement Learning: An Introduction](https://www.amazon.com/Reinforcement-Learning-Introduction-Adaptive-Computation/dp/0262039249) by Andrew Barto and Richard S. Sutton
