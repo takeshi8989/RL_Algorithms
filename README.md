@@ -1,39 +1,34 @@
-# Reinforcement Learning Fundamentals
+# Reinforcement Learning Algorithms
 
-## Algorithms
-- Model-Free Algorithms
-  - Classical RL
-    - Multi-Armed Bandit
-    - Dynamic Programming
-      - Policy Iteration
-      - Value Iteration
-    - Monte Carlo Methods
-    - Temporal-Difference (TD) Learning
-      - Q-Learning
-        - Double Q-Learning
-      - SARSA
-      - n-step TD
-  - Deep RL
-    - Deep Q-Network (DQN)
-      - Prioritized Experience Replay (PER)
-      - Rainbow DQN (combines several improvements)
+- [Multi-Armed Bandit](./mab)
+- [Dynamic Programming](./dp)
+- [Monte Carlo Methods](./mc)
+- [Temporal-Difference Learning](./td)
+- [Deep Q-Network](./dqn)
+  
+- REINFORCE
+- Advantage Actor Critic (A2C)
+- Proximal Policy Optimization (PPO)
+- Trust Region Policy Optimization (TRPO)
+- Deep Deterministic Policy Gradient (DDPG)
+- Soft Actor Critic (SAC)
+- Twin Delayed DDPG (TD3)
+
+- Dyna-Q
+- Monte Carlo Tree Search (MCTS)
+- AlphaZero
+
+## More Algorithms
+- Advanced DQN
+  - Prioritized Experience Replay (PER)
+  - Rainbow DQN
+
 - Model-Based Algorithms
-  - Dyna-Q
   - Model Predictive Control (MPC)
-  - Monte Carlo Tree Search (MCTS)
-  - AlphaZero
-- Policy-Based Algorithms
-  - Policy Gradient Methods
-    - REINFORCE (Vanilla Policy Gradient)
-  - Actor-Critic Methods
-    - Advantage Actor-Critic (A2C)
-    - Asynchronous Advantage Actor-Critic (A3C)
-    - Trust Region Policy Optimization (TRPO)
-    - Proximal Policy Optimization (PPO)
-- Actor-Critic with Deep RL for Continuous Action Spaces
-  - Deep Deterministic Policy Gradient (DDPG)
-  - Twin Delayed Deep Deterministic Policy Gradient (TD3)
-  - Soft Actor-Critic (SAC)
+
+- Actor-Critic Methods
+  - Asynchronous Advantage Actor-Critic (A3C)
   - Distributional Soft Actor-Critic (DSAC)
+
 - Others
   - Intrinsic Curiosity Module (ICM)
