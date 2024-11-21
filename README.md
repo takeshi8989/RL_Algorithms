@@ -4,7 +4,7 @@
 - [Dynamic Programming](./dp)
 - [Monte Carlo Methods](./monte_carlo_methods)
 - [Temporal-Difference Learning](./td_learning)
-- [Deep Q-Network](./dqn)
+- [Deep Q-Networks](./dqn)
   
 - REINFORCE
 - Advantage Actor Critic (A2C)
