@@ -2,8 +2,8 @@
 
 - [Multi-Armed Bandit](./multi_armed_bandit)
 - [Dynamic Programming](./dp)
-- [Monte Carlo Methods](./mc)
-- [Temporal-Difference Learning](./td)
+- [Monte Carlo Methods](./monte_carlo_methods)
+- [Temporal-Difference Learning](./td_learning)
 - [Deep Q-Network](./dqn)
   
 - REINFORCE
