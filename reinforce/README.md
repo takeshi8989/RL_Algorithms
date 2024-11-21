@@ -20,35 +20,34 @@
 
 ### Why we use the log-probability
 
-$$
+``` math
 \begin{align*}
-\max_{\theta} J(\theta)                 &= \mathbb{E}_{\tau \sim \pi_{\theta}} [R(\tau)] \\
-\nabla_{\theta} J(\pi_{\theta})         &= \nabla_{\theta} \mathbb{E}_{\tau \sim \pi_{\theta}} [R(\tau)] \\
-                                        &= \nabla_{\theta} \sum_{\tau} p(\tau | \theta) R(\tau) \\
-                                        &= \sum_{\tau} \nabla_{\theta} (p(\tau | \theta) R(\tau)) \\
-                                        &= \sum_{\tau} (p(\tau | \theta) \nabla_{\theta} R(\tau) + R(\tau)  \nabla_{\theta} p(\tau | \theta))  \\
-                                        &= \sum_{\tau} R(\tau) \nabla_{\theta} p(\tau | \theta)  \\
-                                        &= \sum_{\tau} R(\tau) p(\tau | \theta) \frac{\nabla_{\theta} p(\tau | \theta)}{p(\tau | \theta)}   \\
-                                        &= \sum_{\tau} p(\tau | \theta) R(\tau) \nabla_{\theta} \log p(\tau | \theta)  \\
-                                        &= \mathbb{E}_{\tau \sim \pi_{\theta}} [\sum_{t=0}^T R_t (\tau) \nabla_{\theta} \log p(\tau | \theta)]
+\max_{\theta} J(\theta) &= \mathbb{E}_{\tau \sim \pi_{\theta}} [R(\tau)] \\
+\nabla_{\theta} J(\pi_{\theta}) &= \nabla_{\theta} \mathbb{E}_{\tau \sim \pi_{\theta}} [R(\tau)] \\
+&= \nabla_{\theta} \sum_{\tau} p(\tau | \theta) R(\tau) \\
+&= \sum_{\tau} \nabla_{\theta} (p(\tau | \theta) R(\tau)) \\
+&= \sum_{\tau} (p(\tau | \theta) \nabla_{\theta} R(\tau) + R(\tau)  \nabla_{\theta} p(\tau | \theta))  \\
+&= \sum_{\tau} R(\tau) \nabla_{\theta} p(\tau | \theta)  \\
+&= \sum_{\tau} R(\tau) p(\tau | \theta) \frac{\nabla_{\theta} p(\tau | \theta)}{p(\tau | \theta)}   \\
+&= \sum_{\tau} p(\tau | \theta) R(\tau) \nabla_{\theta} \log p(\tau | \theta)  \\
+&= \mathbb{E}_{\tau \sim \pi_{\theta}} [\sum_{t=0}^T R_t (\tau) \nabla_{\theta} \log p(\tau | \theta)]
 \end{align*}
-$$
+```
 
 And
 
-$$
+``` math
 \begin{align*}
-p(\tau | \theta)                        &= \prod_{t \geq 0} p(s_{t+1} | s_t, a_t) \pi_{\theta} (a_t | s_t) \\
-\log p(\tau | \theta)                   &= \log \prod_{t \geq 0} p(s_{t+1} | s_t, a_t) \pi_{\theta} (a_t | s_t) \\
-                                        &= \sum_{t \geq 0} \log p(s_{t+1} | s_t, a_t) + \log \pi_{\theta} (a_t | s_t) \\
-\nabla_{\theta} \log p(\tau | \theta)   &= \nabla_{\theta} \sum_{t \geq 0} \log p(s_{t+1} | s_t, a_t) + \log \pi_{\theta} (a_t | s_t) \\
-                                        &= \nabla_{\theta} \sum_{t \geq 0} \log \pi_{\theta} (a_t | s_t) \\
-
+p(\tau | \theta) &= \prod_{t \geq 0} p(s_{t+1} | s_t, a_t) \pi_{\theta} (a_t | s_t) \\
+\log p(\tau | \theta) &= \log \prod_{t \geq 0} p(s_{t+1} | s_t, a_t) \pi_{\theta} (a_t | s_t) \\
+&= \sum_{t \geq 0} \log p(s_{t+1} | s_t, a_t) + \log \pi_{\theta} (a_t | s_t) \\
+\nabla_{\theta} \log p(\tau | \theta) &= \nabla_{\theta} \sum_{t \geq 0} \log p(s_{t+1} | s_t, a_t) + \log \pi_{\theta} (a_t | s_t) \\
+&= \nabla_{\theta} \sum_{t \geq 0} \log \pi_{\theta} (a_t | s_t)
 \end{align*}
-$$
+```
 
 Thus, 
 
-$$
+``` math
 \nabla_{\theta} J(\pi_{\theta}) = \mathbb{E}_{\tau \sim \pi_{\theta}} [\sum_{t=0}^T R_t (\tau) \nabla_{\theta} \log \pi_{\theta} (a_t | s_t)]
-$$
+```
