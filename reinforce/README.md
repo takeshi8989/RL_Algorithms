@@ -22,15 +22,15 @@
 
 ``` math
 \begin{align*}
-\max_{\theta} J(\theta) &= \mathbb{E}_{\tau \sim \pi_{\theta}} [R(\tau)] \\
-\nabla_{\theta} J(\pi_{\theta}) &= \nabla_{\theta} \mathbb{E}_{\tau \sim \pi_{\theta}} [R(\tau)] \\
+\max_{\theta} J(\theta) &= 𝐄_{\tau \sim \pi_{\theta}} [R(\tau)] \\
+\nabla_{\theta} J(\pi_{\theta}) &= \nabla_{\theta} 𝐄_{\tau \sim \pi_{\theta}} [R(\tau)] \\
 &= \nabla_{\theta} \sum_{\tau} p(\tau | \theta) R(\tau) \\
 &= \sum_{\tau} \nabla_{\theta} (p(\tau | \theta) R(\tau)) \\
 &= \sum_{\tau} (p(\tau | \theta) \nabla_{\theta} R(\tau) + R(\tau)  \nabla_{\theta} p(\tau | \theta))  \\
 &= \sum_{\tau} R(\tau) \nabla_{\theta} p(\tau | \theta)  \\
 &= \sum_{\tau} R(\tau) p(\tau | \theta) \frac{\nabla_{\theta} p(\tau | \theta)}{p(\tau | \theta)}   \\
 &= \sum_{\tau} p(\tau | \theta) R(\tau) \nabla_{\theta} \log p(\tau | \theta)  \\
-&= \mathbb{E}_{\tau \sim \pi_{\theta}} [\sum_{t=0}^T R_t (\tau) \nabla_{\theta} \log p(\tau | \theta)]
+&= 𝐄_{\tau \sim \pi_{\theta}} [\sum_{t=0}^T R_t (\tau) \nabla_{\theta} \log p(\tau | \theta)]
 \end{align*}
 ```
 
@@ -49,5 +49,5 @@ p(\tau | \theta) &= \prod_{t \geq 0} p(s_{t+1} | s_t, a_t) \pi_{\theta} (a_t | s
 Thus, 
 
 ``` math
-\nabla_{\theta} J(\pi_{\theta}) = \mathbb{E}_{\tau \sim \pi_{\theta}} [\sum_{t=0}^T R_t (\tau) \nabla_{\theta} \log \pi_{\theta} (a_t | s_t)]
+\nabla_{\theta} J(\pi_{\theta}) = 𝐄_{\tau \sim \pi_{\theta}} [\sum_{t=0}^T R_t (\tau) \nabla_{\theta} \log \pi_{\theta} (a_t | s_t)]
 ```
