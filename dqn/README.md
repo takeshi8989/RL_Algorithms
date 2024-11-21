@@ -1,4 +1,4 @@
-# Deep Q-Network
+# Deep Q-Networks
 
 **Initialize**:
 - Replay memory $M$ with a fixed capacity
