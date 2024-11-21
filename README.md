@@ -1,6 +1,6 @@
 # Reinforcement Learning Algorithms
 
-- [Multi-Armed Bandit](./mab)
+- [Multi-Armed Bandit](./multi_armed_bandit)
 - [Dynamic Programming](./dp)
 - [Monte Carlo Methods](./mc)
 - [Temporal-Difference Learning](./td)
