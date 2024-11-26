@@ -7,8 +7,8 @@
 - [Deep Q-Networks (DQN)](./dqn)
 - [REINFORCE](./reinforce)
 - [Advantage Actor Critic (A2C)](./a2c)
+- [Proximal Policy Optimization (PPO)](./ppo)
 
-- Proximal Policy Optimization (PPO)
 - Trust Region Policy Optimization (TRPO)
 - Deep Deterministic Policy Gradient (DDPG)
 - Soft Actor Critic (SAC)
