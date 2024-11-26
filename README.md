@@ -6,8 +6,8 @@
 - [Temporal-Difference Learning](./td_learning)
 - [Deep Q-Networks (DQN)](./dqn)
 - [REINFORCE](./reinforce)
+- [Advantage Actor Critic (A2C)](./a2c)
 
-- Advantage Actor Critic (A2C)
 - Proximal Policy Optimization (PPO)
 - Trust Region Policy Optimization (TRPO)
 - Deep Deterministic Policy Gradient (DDPG)
@@ -37,9 +37,7 @@
 - Others
   - Intrinsic Curiosity Module (ICM)
 
-
 ## References
-
 
 - [Reinforcement Learning: An Introduction](https://www.amazon.com/Reinforcement-Learning-Introduction-Adaptive-Computation/dp/0262039249) by Andrew Barto and Richard S. Sutton
 - [Foundations of Deep Reinforcement Learning: Theory and Practice in Python](https://www.amazon.com/Foundations-Deep-Reinforcement-Learning-Addison-Wesley-ebook/dp/B07ZVYZC6F) by Laura Graesser and Wah Loon Keng
