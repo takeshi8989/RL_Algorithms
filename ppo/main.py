@@ -2,7 +2,7 @@ import gym
 from ppo import PPO
 
 # Initialize environment and PPO agent
-env = gym.make('CartPole-v1')
+env = gym.make('LunarLander-v2')
 state_dim = env.observation_space.shape[0]
 action_dim = env.action_space.n
 
@@ -18,4 +18,4 @@ agent = PPO(
 )
 
 # Train the agent
-agent.train(env, num_iterations=100, timesteps_per_batch=2048)
+agent.train(env, num_iterations=500, timesteps_per_batch=2048)

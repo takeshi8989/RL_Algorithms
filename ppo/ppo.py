@@ -114,21 +114,16 @@ class PPO:
     def train(self, env, num_iterations, timesteps_per_batch):
         """Train the PPO agent."""
         for iteration in range(num_iterations):
-            states = []
-            actions = []
-            rewards = []
-            log_probs = []
-            dones = []
-            values = []
-            state = env.reset()
+            states, actions, rewards, log_probs, dones, values = [], [], [], [], [], []
+            state, _ = env.reset()  # Extract state from reset tuple
+            episode_reward = 0
+            total_rewards = []  # Track total rewards for each episode
             done = False
 
             # Collect trajectories
             for _ in range(timesteps_per_batch):
                 action, log_prob = self.select_action(state)
-                state_tensor = torch.tensor(state, dtype=torch.float32) \
-                                    .unsqueeze(0)
-                value = self.critic(state_tensor).item()
+                value = self.critic(torch.tensor(state, dtype=torch.float32).unsqueeze(0)).item()
                 next_state, reward, terminated, truncated, _ = env.step(action)
                 done = terminated or truncated
 
@@ -141,8 +136,12 @@ class PPO:
                 values.append(value)
 
                 state = next_state
+                episode_reward += reward  # Accumulate reward for the current episode
+
                 if done:
-                    state = env.reset()
+                    total_rewards.append(episode_reward)  # Log total reward for the episode
+                    state, _ = env.reset()  # Reset the environment
+                    episode_reward = 0  # Reset the reward counter for the new episode
 
             # Compute returns and advantages
             returns = self.compute_returns(rewards, dones)
@@ -152,5 +151,5 @@ class PPO:
             # Perform updates
             self.update(states, actions, log_probs, returns, advantages)
 
-            # Logging
-            print(f"Iteration {iteration + 1}: Total Reward = {sum(rewards)}")
+            # Log the average reward per episode for the current iteration
+            print(f"Iteration {iteration + 1}: Average Reward = {sum(total_rewards) / len(total_rewards):.2f}")
