@@ -18,10 +18,12 @@
 - Compute the advantage estimates: $A_t = G_t - V_{\phi}(s_t)$
 - For $K$ epochs, sample mini-batches of trajectories:
     - Compute ratio: $r_t(\theta) = \frac{\pi_{\theta}(a_t|s_t)}{\pi_{\theta_\text{old}}(a_t|s_t)}$
-    - Compute clipped surrogate objective: $L^{\text{clip}}(\theta) = E[\min (r_t(\theta) A_t, clip(r_t(\theta), 1 - \epsilon, 1+\epsilon)A_t)]$
-    - Add entropy bonus for exploration: $L^{\text{entropy}}(\theta) = \beta \cdot Entropy [\pi]$
-    - Maximize total policy loss: $L^{\text{policy}}(\theta) = L^{\text{clip}}(\theta) + L^{\text{entropy}}(\theta)$
-    - Update $\theta$ using gradient ascent.
-    - Minimize value loss: $L^{\text{value}}(\phi) = E[(G_t - V_{\phi}(s_t))^s]$
-    - Update $\phi$ using gradient ascent.
+    - Compute clipped surrogate objective: $L^{\text{clip}}(\theta) = 𝐄[\min (r_t(\theta) A_t, clip(r_t(\theta), 1 - \epsilon, 1+\epsilon)A_t)]$
+    - Perform a gradient ascent step on $\theta$ using: $L^{\text{policy}}(\theta) = 𝐄[L^{\text{clip}}(\theta)]$
+    - Minimize value loss: $L^{\text{value}}(\phi) = 𝐄[(G_t - V_{\phi}(s_t))^2]$
+    - Perform a gradient descent step on $\phi$
+
+
+
+## Notes
 
