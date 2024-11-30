@@ -8,8 +8,8 @@
 - [REINFORCE](./reinforce)
 - [Advantage Actor Critic (A2C)](./a2c)
 - [Proximal Policy Optimization (PPO)](./ppo)
+- [Trust Region Policy Optimization (TRPO)](.trpo)
 
-- Trust Region Policy Optimization (TRPO)
 - Deep Deterministic Policy Gradient (DDPG)
 - Soft Actor Critic (SAC)
 - Twin Delayed DDPG (TD3)
