@@ -10,16 +10,14 @@ class TRPO:
         self.state_dim = state_dim
         self.action_dim = action_dim
         self.gamma = gamma
-        self.delta = delta  # KL-divergence limit
-        self.alpha = alpha  # Backtracking coefficient
+        self.delta = delta
+        self.alpha = alpha
         self.max_backtracking_steps = max_backtracking_steps
 
-        # Policy network
         self.policy = self.build_policy_network()
         self.old_policy = self.build_policy_network()
-        self.policy_optimizer = None  # TRPO doesn't directly use optimizers
+        self.policy_optimizer = None
 
-        # Value function
         self.value_function = self.build_value_network()
         self.value_optimizer = optim.Adam(self.value_function.parameters(), lr=3e-4)
 
@@ -55,12 +53,8 @@ class TRPO:
         returns = torch.tensor(returns, dtype=torch.float32)
         values = torch.tensor(values, dtype=torch.float32)
 
-        # Compute advantages
         advantages = returns - values
-
-        # Normalize advantages
         advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
-
         return returns, advantages
 
     def conjugate_gradient(self, Hx, b, n_steps=10, tol=1e-10):
@@ -141,13 +135,7 @@ class TRPO:
 
     def train(self, env, num_iterations, timesteps_per_batch):
         for iteration in range(num_iterations):
-            states = []
-            actions = []
-            rewards = []
-            log_probs = []
-            values = []
-            dones = []
-
+            states, actions, rewards, log_probs, values, dones = [], [], [], [], [], []
             state, _ = env.reset()
             done = False
 
