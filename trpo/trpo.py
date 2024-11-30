@@ -99,7 +99,6 @@ class TRPO:
         )
 
         hessian_vector_product = torch.cat([grad.view(-1) for grad in hessian_vector_grads])
-
         return hessian_vector_product + damping * vector
 
     def line_search(self, states, actions, advantages, step_dir, max_kl):
