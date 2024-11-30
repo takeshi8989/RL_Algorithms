@@ -7,7 +7,7 @@ state_dim = env.observation_space.shape[0]
 action_dim = env.action_space.n
 
 gamma = 0.995
-delta = 0.005
+delta = 0.001
 alpha = 0.3
 max_backtracking_steps = 10
 timesteps_per_batch = 2048

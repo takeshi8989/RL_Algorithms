@@ -63,14 +63,14 @@ class TRPO:
         p = r.clone()
         for _ in range(n_steps):
             Hp = Hx(p)
-            alpha = (r @ r) / (p @ Hp)
-            x = x + alpha * p
+            alpha = torch.dot(r, r) / torch.dot(p, Hp)
+            x += alpha * p
+            r -= alpha * Hp
             r_new = r - alpha * Hp
-            if torch.norm(r_new) < tol:
-                break
-            beta = (r_new @ r_new) / (r @ r)
+            beta = torch.dot(r_new, r_new) / torch.dot(r, r)
             p = r_new + beta * p
-            r = r_new
+            if r.norm() < tol:
+                break
         return x
 
     def hessian_vector_product(self, states, actions, vector, damping=1e-2):
