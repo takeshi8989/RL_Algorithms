@@ -25,3 +25,31 @@
 - Compute policy gradient: $\theta \gets \arg \max\limits_{\theta} \frac {1}{B} \sum\limits_{s \in D} Q_{\phi}(s, \pi(s))$
 - Update target critic network: $\phi_{\text{target}} \gets \tau \phi + (1 - \tau) \phi_{\text{target}}$
 - Update target actor network: $\theta_{\text{target}} \gets \tau \theta + (1 - \tau) \theta_{\text{target}}$
+
+
+## Notes
+
+This algorithm is designed to handle problems with continuous action spaces, which cannot be directly addressed by traditional RL algorithms like Q-learning or DQN. In continuous action spaces, the number of possible actions is infinite, making it computationally infeasible to find the optimal action by enumeration.
+
+### Continuous Action Space Problem
+
+- Continuous Policy Output: The The actor outputs actions within the continuous action bounds $[a_{\text{low}}, a_{\text{high}}]$.
+
+$$
+a = clip(\pi_{\theta}(s) + \epsilon,a_{\text{low}}, a_{\text{high}})
+$$
+
+Where $\epsilon \sim N(0, \sigma)$ adds Gaussian noise for exploration
+
+
+- The policy $\pi_{\theta}(s)$ is updated to maximize the critic's Q-value:
+
+$$
+\theta \gets \arg \max\limits_{\theta} E[Q_{\theta}(s, \pi_{\theta}(s))]
+$$
+
+- The critic network learns using the Bellman equation:
+
+$$
+Q(s, a) = E[r + \gamma Q_{\phi_{\text{target}}}(s', \pi_{\theta_{\text{target}}}(s))]
+$$
