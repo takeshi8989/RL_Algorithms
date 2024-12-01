@@ -38,16 +38,13 @@ class DDPG:
         self.tau = tau
         self.batch_size = batch_size
 
-        # Replay buffer
         self.replay_buffer = ReplayBuffer(buffer_capacity)
 
-        # Actor network
         self.actor = self.build_actor()
         self.actor_target = self.build_actor()
         self.actor_optimizer = optim.Adam(self.actor.parameters(), lr=lr)
         self.actor_target.load_state_dict(self.actor.state_dict())
 
-        # Critic network
         self.critic = self.build_critic()
         self.critic_target = self.build_critic()
         self.critic_optimizer = optim.Adam(self.critic.parameters(), lr=lr)
@@ -85,27 +82,23 @@ class DDPG:
 
         states, actions, rewards, next_states, dones = self.replay_buffer.sample(self.batch_size)
 
-        # Compute Q-targets
         with torch.no_grad():
             next_actions = self.actor_target(next_states)
             q_targets = rewards + self.gamma * \
                 (1 - dones) * self.critic_target(torch.cat([next_states, next_actions], dim=1)).squeeze()
 
-        # Update critic
         q_values = self.critic(torch.cat([states, actions], dim=1)).squeeze()
         critic_loss = ((q_values - q_targets) ** 2).mean()
         self.critic_optimizer.zero_grad()
         critic_loss.backward()
         self.critic_optimizer.step()
 
-        # Update actor
         actions_pred = self.actor(states)
         actor_loss = -self.critic(torch.cat([states, actions_pred], dim=1)).mean()
         self.actor_optimizer.zero_grad()
         actor_loss.backward()
         self.actor_optimizer.step()
 
-        # Update target networks
         self.update_target_network(self.actor_target, self.actor)
         self.update_target_network(self.critic_target, self.critic)
 
@@ -120,9 +113,9 @@ class DDPG:
         for episode in range(num_episodes):
             state, _ = env.reset()
             total_reward = 0
-            for step in range(max_steps):
+            for _ in range(max_steps):
                 action = self.select_action(state)
-                next_state, reward, done, truncated, _ = env.step(action)
+                next_state, reward, done, _, _ = env.step(action)
                 self.store_transition((state, action, reward, next_state, done))
                 self.update()
                 state = next_state
