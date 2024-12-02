@@ -10,9 +10,9 @@
 - [Proximal Policy Optimization (PPO)](./ppo)
 - [Trust Region Policy Optimization (TRPO)](./trpo)
 - [Deep Deterministic Policy Gradient (DDPG)](./ddpg)
+- [Twin Delayed DDPG (TD3)](./td3)
 
 - Soft Actor Critic (SAC)
-- Twin Delayed DDPG (TD3)
 
 - Dyna-Q
 - Monte Carlo Tree Search (MCTS)
