@@ -17,8 +17,6 @@
 - Monte Carlo Tree Search (MCTS)
 - AlphaZero
 
-## More Algorithms
-
 - Advanced DQN
 
   - Prioritized Experience Replay (PER)
