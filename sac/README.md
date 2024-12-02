@@ -28,3 +28,25 @@
 - Maximize the expected reward and entropy: $\mathcal{L}_{\theta} = -\frac{1}{|B|} \sum\limits_{s \in B} (\alpha \log \pi_{\theta}(a|s) - \min\limits_{i=1,2}Q_{\phi_i}(s, a))$
 - Update Target Networks: $\phi_{\text{target, i}} \gets \tau \phi_i + (1 - \tau) \phi_{\text{target, i}}$ 
 
+
+## Notes
+
+### Key Differences: SAC vs. TD3
+1. Policy Type:
+    - TD3: Deterministic policy; directly outputs actions.
+        - $a = \pi_{\theta}(s)$
+    - SAC: Stochastic policy; outputs a probability distribution and samples actions. 
+        - $a \sim \pi_{\theta}(a|s)$
+
+2. Exploration Mechanism:
+    - TD3: Adds noise to the deterministic policy during training.
+        - $a = clip(\pi_{\theta}(s) + \epsilon, a_{\text{low}}, a_{\text{high}})$
+    - SAC: Uses entropy regularization to encourage exploration.
+        - $\mathcal{L}_{\text{actor}} = E[\alpha \log \pi_{\theta}(a|s) - Q_{\phi}(s, a)]$
+
+3. Critic Updates:
+    - TD3: Minimizes overestimation bias with clipped double Q-learning.
+        - $y(r, s', d) = r + \gamma (1 - d) \min (Q_{\phi_1}, Q_{\phi_2})$
+    - SAC: Similar but includes an entropy term for exploration.
+        - $y(r, s', d) = r + \gamma (1 - d)(\min (Q_{\phi_1}, Q_{\phi_2}) - \alpha \log \pi_{\theta}(a|s))$
+        
