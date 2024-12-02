@@ -12,7 +12,6 @@ max_action = float(env.action_space.high[0])
 actor = Actor(state_dim, action_dim, max_action)
 critic = Critic(state_dim, action_dim)
 
-
 td3_agent = TD3(
     state_dim=state_dim,
     action_dim=action_dim,
@@ -31,25 +30,4 @@ td3_agent = TD3(
     max_action=max_action
 )
 
-
-state = env.reset()
-for episode in range(100):
-    state, _ = env.reset()
-    episode_reward = 0
-    done = False
-    max_steps = 200
-    steps = 0
-
-    while not done and steps < max_steps:
-        action = td3_agent.select_action(state, noise_scale=0.1)
-        next_state, reward, done, _, _ = env.step(action)
-
-        td3_agent.store_transition((state, action, reward, next_state, done))
-
-        td3_agent.train()
-
-        state = next_state
-        episode_reward += reward
-        steps += 1
-
-    print(f"Episode {episode + 1}: Reward = {episode_reward}")
+td3_agent.train(env, num_episodes=100, max_steps=200, noise_scale=0.1)
