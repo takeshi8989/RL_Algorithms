@@ -91,23 +91,21 @@ class TD3:
 
         self.total_updates += 1
 
-    def train(self, env, num_episodes=100, max_steps=200, noise_scale=0.1):
+    def train(self, env, num_episodes, max_steps, noise_scale=0.1):
         for episode in range(num_episodes):
             state, _ = env.reset()
             episode_reward = 0
-            done = False
-            steps = 0
 
-            while not done and steps < max_steps:
+            for _ in range(max_steps):
                 action = self.select_action(state, noise_scale=noise_scale)
                 next_state, reward, done, _, _ = env.step(action)
 
                 self.store_transition((state, action, reward, next_state, done))
-
                 self.update()
 
                 state = next_state
                 episode_reward += reward
-                steps += 1
+                if done:
+                    break
 
             print(f"Episode {episode + 1}: Reward = {episode_reward}")
