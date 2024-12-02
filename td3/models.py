@@ -5,14 +5,14 @@ import torch
 class Actor(nn.Module):
     def __init__(self, state_dim, action_dim, max_action):
         super(Actor, self).__init__()
-        self.max_action = float(max_action)  # Ensure max_action is a scalar
+        self.max_action = float(max_action)
         self.network = nn.Sequential(
             nn.Linear(state_dim, 256),
             nn.ReLU(),
             nn.Linear(256, 256),
             nn.ReLU(),
             nn.Linear(256, action_dim),
-            nn.Tanh()  # Output action in [-1, 1]
+            nn.Tanh()
         )
 
     def forward(self, state):
