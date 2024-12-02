@@ -31,7 +31,7 @@
 
 ## Notes
 
-### Key Differences: SAC vs. TD3
+### Key Differences: SAC vs TD3
 1. Policy Type:
     - TD3: Deterministic policy; directly outputs actions.
         - $a = \pi_{\theta}(s)$
@@ -42,7 +42,7 @@
     - TD3: Adds noise to the deterministic policy during training.
         - $a = clip(\pi_{\theta}(s) + \epsilon, a_{\text{low}}, a_{\text{high}})$
     - SAC: Uses entropy regularization to encourage exploration.
-        - $\mathcal{L}_{\text{actor}} = E[\alpha \log \pi_{\theta}(a|s) - Q_{\phi}(s, a)]$
+        - $\mathcal{L}_{\text{actor}} = E[\alpha \log \pi(a|s) - Q(s, a)]$
 
 3. Critic Updates:
     - TD3: Minimizes overestimation bias with clipped double Q-learning.
